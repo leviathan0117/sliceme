@@ -2,4 +2,4 @@
 
 ## About Sliceme
 
-Sliceme is a web application that allows to easily build and visualize cross sections of basic and custom spatial shapes as well as to solve basic stigonometry problems.
+Sliceme is a web application that allows to easily build and visualize cross sections of basic and custom spatial shapes as well as to solve basic trigonometry problems.
