@@ -5,3 +5,25 @@ body {
 canvas {
     display: block;
 }
+
+/* Control the left side */
+.split-left {
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    left: 0;
+}
+
+/* Control the right side */
+.split-right {
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    right: 0;
+}
