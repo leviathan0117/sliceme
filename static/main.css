@@ -27,3 +27,28 @@ canvas {
     padding-top: 20px;
     right: 0;
 }
+
+button.render-button {
+    font-family: 'Open Sans', sans-serif;
+    border: 2px solid #76FF7A;
+    background-color: #76FF7A;
+    border-radius: 4px;
+    outline: none;
+    font-size: 1.2em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+button.render-button:hover {
+    background-color: #6ce86f;
+    border-color: #6ce86f;
+}
+
+button.render-button:active {
+    background: none;
+}
+
+.CodeMirror {
+    font-family: 'DM Mono', monospace;
+    font-size: large;
+}
