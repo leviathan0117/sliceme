@@ -22,7 +22,11 @@
     <br>
     <h1>*webGL (three.js) test zone*</h1>
 
-    <script src="{% static 'animation.js' %}"></script>
+    <script src="{% static 'js/libs/OrbitControls.js' %}"></script>
+    <script src="{% static 'js/graphics_settings.js' %}"></script>
+    <script src="{% static 'js/objects.js' %}"></script>
+    <script src="{% static 'js/animation.js' %}"></script>
+    <script src="{% static 'js/loop.js' %}"></script>
 
     <br>
 </div>
@@ -38,7 +42,7 @@
     </div>
     {% endverbatim %}
 
-    <script src="{% static 'vue.js' %}"></script>
+    <script src="{% static 'js/vue.js' %}"></script>
 </div>
 
 <h1>---------------------------</h1>
@@ -58,8 +62,8 @@
         <input type="button" value="Request C (GET)" OnClick="test_function3();">
     </div>
 
-    <script src="{% static 'csrf_token_setup.js' %}"></script>
-    <script src="{% static 'server_connection.js' %}"></script>
+    <script src="{% static 'js/csrf_token_setup.js' %}"></script>
+    <script src="{% static 'js/server_connection.js' %}"></script>
 </div>
 
 <br><br><br><br><br><br><br><br><br>
