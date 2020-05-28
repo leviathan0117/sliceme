@@ -78,13 +78,14 @@
 </div>
 
 <div class="split-right" id="editor-container">
-    <button class="render-button">Compile</button>
+    <button class="render-button" onclick="makeCompileRequest()">Compile</button>
     <script>
-        let editor = CodeMirror(document.getElementById("editor-container"), {
+        var editor = CodeMirror(document.getElementById("editor-container"), {
             value: "new ",
             mode:  "slicescript"
         });
         editor.focus();
+        editor.id = "editor"
     </script>
 </div>
 
