@@ -8,8 +8,6 @@ cut_points = [
 ]
 parallelepiped.new_cut(new Cut(cut_points));
 
-camera.position.z = 15;
-
 function animate() {
     controls.update();
 }
