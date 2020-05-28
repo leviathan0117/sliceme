@@ -39,3 +39,21 @@ function test_function3() {
         }
     });
 }
+
+function makeCompileRequest() {
+    let code = editor.getValue()
+    let rule_array = code.split('\n')
+    $.ajax({
+        url: '/api/request/',
+        method: 'POST',
+        data: {
+            rules: rule_array
+        },
+        success: function (d) {
+            console.log(d);
+        },
+        error: function (d) {
+            console.log(d);
+        }
+    });
+}
