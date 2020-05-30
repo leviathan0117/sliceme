@@ -7,11 +7,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
+    <script src={% static "js/libs/codemirror.js" %}></script>
+{#    <script src="mode/javascript/javascript.js"></script>#}
 
+    <link rel="stylesheet" href={% static "js/libs/codemirror.css" %}>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static 'main.css' %}" type="text/css">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Open+Sans&display=swap" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
 
@@ -20,55 +25,71 @@
 
 <body>
 
-<div id="Zone1">
-    <br>
-    <h1>*webGL (three.js) test zone*</h1>
+<div class="split-left">
 
-    <script src="{% static 'js/libs/OrbitControls.js' %}"></script>
-    <script src="{% static 'js/graphics_settings.js' %}"></script>
-    <script src="{% static 'js/objects.js' %}"></script>
-    <script src="{% static 'js/animation.js' %}"></script>
-    <script src="{% static 'js/loop.js' %}"></script>
+    <div id="Zone1">
+        <br>
+        <h1>*webGL (three.js) test zone*</h1>
 
-    <br>
+        <script src="{% static 'js/libs/OrbitControls.js' %}"></script>
+        <script src="{% static 'js/graphics_settings.js' %}"></script>
+        <script src="{% static 'js/objects.js' %}"></script>
+        <script src="{% static 'js/animation.js' %}"></script>
+        <script src="{% static 'js/loop.js' %}"></script>
+
+        <br>
+    </div>
+
+    <h1>---------------------------</h1>
+
+    <div id="Zone2">
+        <h1>*Vue test zone*</h1>
+
+        {% verbatim %}
+        <div id="app">
+            <h1>{{ message }}</h1>
+        </div>
+        {% endverbatim %}
+
+        <script src="{% static 'js/vue.js' %}"></script>
+    </div>
+
+    <h1>---------------------------</h1>
+
+    <div id="Zone3">
+        <h1>*Ajax test zone* (check the console)</h1>
+
+        <div class="btn btn-success btn-lg">
+            <input type="button" value="Request A (POST)" OnClick="test_function1();">
+        </div>
+        <br><br>
+        <div class="btn btn-success btn-lg">
+            <input type="button" value="Request B (POST)" OnClick="test_function2();">
+        </div>
+        <br><br>
+        <div class="btn btn-success btn-lg">
+            <input type="button" value="Request C (GET)" OnClick="test_function3();">
+        </div>
+
+        <script src="{% static 'js/csrf_token_setup.js' %}"></script>
+        <script src="{% static 'js/server_connection.js' %}"></script>
+    </div>
+
+    <br><br><br><br><br><br><br><br><br>
+
 </div>
 
-<h1>---------------------------</h1>
-
-<div id="Zone2">
-    <h1>*Vue test zone*</h1>
-
-    {% verbatim %}
-    <div id="app">
-        <h1>{{ message }}</h1>
-    </div>
-    {% endverbatim %}
-
-    <script src="{% static 'js/vue.js' %}"></script>
+<div class="split-right" id="editor-container">
+    <button class="render-button" onclick="makeCompileRequest()">Compile</button>
+    <script>
+        var editor = CodeMirror(document.getElementById("editor-container"), {
+            value: "new ",
+            mode:  "slicescript"
+        });
+        editor.focus();
+        editor.id = "editor"
+    </script>
 </div>
-
-<h1>---------------------------</h1>
-
-<div id="Zone3">
-    <h1>*Ajax test zone* (check the console)</h1>
-
-    <div class="btn btn-success btn-lg">
-        <input type="button" value="Request A (POST)" OnClick="test_function1();">
-    </div>
-    <br><br>
-    <div class="btn btn-success btn-lg">
-        <input type="button" value="Request B (POST)" OnClick="test_function2();">
-    </div>
-    <br><br>
-    <div class="btn btn-success btn-lg">
-        <input type="button" value="Request C (GET)" OnClick="test_function3();">
-    </div>
-
-    <script src="{% static 'js/csrf_token_setup.js' %}"></script>
-    <script src="{% static 'js/server_connection.js' %}"></script>
-</div>
-
-<br><br><br><br><br><br><br><br><br>
 
 </body>
 
