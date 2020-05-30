@@ -5,3 +5,50 @@ body {
 canvas {
     display: block;
 }
+
+/* Control the left side */
+.split-left {
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    left: 0;
+}
+
+/* Control the right side */
+.split-right {
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    right: 0;
+}
+
+button.render-button {
+    font-family: 'Open Sans', sans-serif;
+    border: 2px solid #76FF7A;
+    background-color: #76FF7A;
+    border-radius: 4px;
+    outline: none;
+    font-size: 1.2em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+button.render-button:hover {
+    background-color: #6ce86f;
+    border-color: #6ce86f;
+}
+
+button.render-button:active {
+    background: none;
+}
+
+.CodeMirror {
+    font-family: 'DM Mono', monospace;
+    font-size: large;
+}
