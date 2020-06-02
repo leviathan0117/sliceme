@@ -69,3 +69,36 @@ class Segment:
     def __find_parent(self):
         self.parent = Straight(self.points[0], self.points[1] - self.points[0])
 
+
+class Plane:
+
+    normal = Vector3()
+    dist = 0                # distance from (0; 0; 0) to the plane
+    content = {}            # basic components that lie on the plane
+
+    def __init__(self, *args):
+        if len(args) == 0:
+            pass
+        elif len(args) == 2:
+            if type(args[1]) == int:
+                # Plane(normal : Vector3, dist : float)
+                self.normal = args[0]
+                self.dist = args[1]
+            else:
+                # Plane(normal : Vector3, point : Point)
+                self.normal = args[0]
+                self.dist = self.__calculate_dist_by_point(self.normal, args[1])
+        elif len(args) == 4:
+            # Plane(A : float, B : float, C : float, D : float)
+            self.normal = Vector3(*args[:3])
+            self.dist = args[3]
+        elif len(args) == 6:
+            # Plane(A : float, B : float, C : float, Px : float, Py : float, Pz : float)
+            self.normal = Vector3(*args[:3])
+            self.dist = self.__calculate_dist_by_point(self.normal, Point(*args[3:]))
+        else:
+            raise ValueError(f"{type(self).__name__} expected 0, 2, 4 or 6 arguments, got {len(args)}")
+
+    def __calculate_dist_by_point(self, normal, point):
+        # todo
+        pass
