@@ -74,7 +74,7 @@ class Plane:
 
     normal = Vector3()
     dist = 0                # distance from (0; 0; 0) to the plane
-    content = {}            # basic components that lie on the plane
+    content = set()         # basic components that lie on the plane
 
     def __init__(self, *args):
         if len(args) == 0:
@@ -97,8 +97,30 @@ class Plane:
             self.normal = Vector3(*args[:3])
             self.dist = self.__calculate_dist_by_point(self.normal, Point(*args[3:]))
         else:
-            raise ValueError(f"{type(self).__name__} expected 0, 2, 4 or 6 arguments, got {len(args)}")
+            raise ValueError(f"{type(self).__name__} expected 0, 1, 2, 4 or 6 arguments, got {len(args)}")
 
     def __calculate_dist_by_point(self, normal, point):
         # todo
         pass
+
+    def add_content(self, item):
+        self.content.add(item)
+
+
+class Polygon:
+
+    vertexes = []
+    parent_plane = Plane()
+
+    def __init__(self, plane, *points):
+        # Polygon(plane : Plane, Point, Point, Point, ...)
+        if type(plane) != Plane:
+            raise ValueError(f"First parameter for Polygon must be Plane, got {type(plane).__name__}")
+        if len(points) < 3:
+            raise ValueError(f"At least 3 vertexes are required for Polygon, got {len(points)}")
+        for item in points:
+            if type(item) != Point:
+                raise ValueError(f"Polygon expected Point, got {type(item).__name__}")
+        self.parent_plane = plane
+        plane.add_content(self)
+        self.vertexes = points[::]
