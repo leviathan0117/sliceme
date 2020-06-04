@@ -19,7 +19,36 @@ class Vector3:
         else:
             raise ValueError(f"{type(self).__name__} expected 0, 1 or 3 arguments, got {len(args)}")
 
-        # todo implement addition, subtraction, various products
+    def __add__(self, other):
+        if type(other) == Vector3:
+            return Vector3(self.x + other.x, self.y + other.y, self.z + other.z)
+        else:
+            raise ValueError(f"Operation + is unsupported between {type(self).__name__} and {type(other).__name__}")
+
+    def __sub__(self, other):
+        if type(other) == Vector3:
+            return Vector3(self.x - other.x, self.y - other.y, self.z - other.z)
+        else:
+            raise ValueError(f"Operation - is unsupported between {type(self).__name__} and {type(other).__name__}")
+
+    def __mul__(self, other):
+        if type(other) == Vector3:
+            # dot product
+            return (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
+        elif type(other) in {int, float}:
+            return Vector3(self.x * other, self.y * other, self.z * other)
+        else:
+            raise ValueError(f"Operation * is unsupported between {type(self).__name__} and {type(other).__name__}")
+
+    def __mod__(self, other):
+        if type(other) == Vector3:
+            # hadamard product
+            return Vector3(self.x * other.x, self.y * other.y, self.z * other.z)
+        else:
+            raise ValueError(f"Operation % is unsupported between {type(self).__name__} and {type(other).__name__}")
+
+    def __neg__(self):
+        return self * -1
 
 
 class Point (Vector3):
