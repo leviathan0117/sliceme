@@ -3,6 +3,18 @@ File contains classes that represent basic components of a scene such as point, 
 """
 
 
+class SceneObject(dict):
+    """
+    Representation of any basic shape of a predeconstructed scene
+    """
+
+    type = ''
+
+    def __init__(self, object_type):
+        super().__init__()
+        self.type = object_type
+
+
 class Vector3:
 
     x = 0
