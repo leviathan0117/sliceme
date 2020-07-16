@@ -1,64 +1,39 @@
-import rules
-
-
 def run(code):
     """
     :param list code: List of rules
     :return: List of primitive shapes to be drawn
     """
 
-    scene = []
+    scene = []      # list of basic objects
+    rules = []      # list of equations that describe points of the basic objects
 
-    for rule in code:
-        scene = apply_rule(scene, rule)
+    # compile code into equations
+    for line in code:
+        scene, rules = compile_rule(line, scene, rules)
 
-    scene = compile_scene(scene)
+    compiled_scene = compile_scene(scene, rules)
 
-    scene = deconstruct_scene(scene)
-
-    final_scene = pack_scene(scene)
+    final_scene = pack_scene(compiled_scene)
 
     return final_scene
 
 
-def apply_rule(scene, rule):
+def compile_scene(scene, rules):
     """
-    :param iterable scene: List of objects
-    :param list rule: Rule represented as a list of tokens
-    :return: Modified scene
-    """
-
-    if rule[0] == 'new':
-        if len(rule) == 2:
-            scene = rules.new(scene, 'cube', rule[1])
-        elif len(rule) == 3:
-            scene = rules.new(scene, rule[1], rule[2])
-    else:
-        raise ValueError(f"Parsing error on rule {' '.join(rule)}")
-
-    return scene
-
-
-def compile_scene(scene):
-    """
-    Fill in every necessary parameter of objects in the scene
     :param list scene: List of objects
-    :return: Modified scene
+    :return: A scene that meet rules
     """
 
     # todo
     return scene
 
 
-def deconstruct_scene(scene):
+def compile_rule(command, scene, rules):
     """
-    Turns every object in the scene into a primitive
-    :param list scene:
-    :return: List of primitives
+    translates command into an equation
+    :return: modified scene and rules
     """
-
-    # todo
-    return scene
+    return
 
 
 def pack_scene(scene):
