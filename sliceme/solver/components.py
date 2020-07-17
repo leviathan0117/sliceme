@@ -148,6 +148,7 @@ class Plane:
         self.content.add(item)
 
 
+# updated
 class Polygon:
 
     vertexes = []
