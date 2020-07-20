@@ -5,10 +5,10 @@ function makeCompileRequest() {
         method: 'POST',
         data: {code: code},
         success: function (d) {
-            //console.log(d);
+            console.log(d);
         },
         error: function (d) {
-            //console.log(d);
+            console.log(d);
         }
     });
 }
