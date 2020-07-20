@@ -1,4 +1,5 @@
 from collections import deque
+from scene_objects import Point, ComplexShape
 
 
 def preprocess_code(code: str) -> deque:
@@ -11,7 +12,7 @@ def preprocess_code(code: str) -> deque:
 def interpret_code(code: deque) -> (list, list, list):
     """Translates given code into a scene, described with a system of equations"""
 
-    pass
+    return [], [], []
 
 
 def solve(scene_description: list, variables: list, equations: list) -> list:
@@ -23,13 +24,34 @@ def solve(scene_description: list, variables: list, equations: list) -> list:
 def pack_scene(scene: list) -> list:
     """Translates given scene so it can be read by renderer"""
 
-    pass
+    packed_scene = []
+    for item in scene:
+        component = {}
+        if item is Point:
+            component['type'] = 'point'
+            component['position'] = [
+                item.x,
+                item.y,
+                item.z
+            ]
+        elif item is ComplexShape:
+            component['type'] = item.type
+            component['content'] = []
+            for point in item.content:
+                component['content'].append([
+                    point.x,
+                    point.y,
+                    point.z
+                ])
+        packed_scene.append(component)
+
+    return packed_scene
 
 
 def process(raw_code: str) -> list:
     """Builds scene from given code"""
 
-    code = preprocess_code()
+    code = preprocess_code(raw_code)
 
     scene_description, variables, equations = interpret_code(code)
 
