@@ -2,7 +2,7 @@ import json
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
-from sliceme.solver import Solver
+from sliceme.solver import process
 
 
 def index(request):
@@ -15,9 +15,7 @@ def process_request(request):
 
         code = request.POST.get('code', None)
 
-        solver = Solver()
-
-        response = solver.solve(code)
+        response = process(code)
         response_data = {"response": str(response), "received": str(code)}
         return HttpResponse(json.dumps(response_data))
     else:
