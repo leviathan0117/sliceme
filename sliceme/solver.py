@@ -1,5 +1,6 @@
 from collections import deque
 from scene_objects import Point, ComplexShape
+from solver_utilities import solve_system
 
 
 def preprocess_code(code: str) -> deque:
@@ -18,7 +19,20 @@ def interpret_code(code: deque) -> (list, list, list):
 def solve(scene_description: list, variables: list, equations: list) -> list:
     """Finds a scene that satisfies given requirements"""
 
-    pass
+    solution = solve_system(equations, variables)
+
+    for item in scene_description:
+        if item is Point:
+            item.x = solution[item.name + 'x']
+            item.y = solution[item.name + 'y']
+            item.z = solution[item.name + 'z']
+        elif item is ComplexShape:
+            for point in item.content:
+                point.x = solution[point.name + 'x']
+                point.y = solution[point.name + 'y']
+                point.z = solution[point.name + 'z']
+
+    return scene_description
 
 
 def pack_scene(scene: list) -> list:
