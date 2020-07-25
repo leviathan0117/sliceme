@@ -1,19 +1,31 @@
 from collections import deque
 from scene_objects import Point, ComplexShape
 from solver_utilities import solve_system
+from command_interpreter import interpret_command
 
 
-def preprocess_code(code: str) -> deque:
-    """Prepares code for the next steps"""
+def preprocess_code(code: str) -> list:
+    """Prepares code for the next steps
+    @return: list of deque
+    """
 
-    cmd_list = code.split('\n')
-    return deque(cmd_list)
+    cmd_list = list(code.split('\n'))
+    for i, item in enumerate(cmd_list):
+        cmd_list[i] = deque(item.split())
+    return cmd_list
 
 
-def interpret_code(code: deque) -> (list, list, list):
-    """Translates given code into a scene, described with a system of equations"""
+def interpret_code(code: list) -> (list, list, list):
+    """Translates given code into a scene, described with a system of equations
+    @return: (scene, variables, equations)
+    """
 
-    return [], [], []
+    scene, variables, equations = [], [], []
+
+    for command in code:
+        scene, variables, equations = interpret_command(command, scene, variables, equations)
+
+    return scene, variables, equations
 
 
 def solve(scene_description: list, variables: list, equations: list) -> list:
@@ -68,6 +80,9 @@ def process(raw_code: str) -> list:
     code = preprocess_code(raw_code)
 
     scene_description, variables, equations = interpret_code(code)
+
+    # debug output
+    print(equations)
 
     scene = solve(scene_description, variables, equations)
 
