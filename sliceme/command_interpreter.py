@@ -8,38 +8,45 @@ import describe as desc
 def build_shape(shape_type: str, shape_name: str, is_regular: bool) -> (list, list, list):
     """Describes a required shape with equations"""
 
-    vertexes = re.findall(r'[A-Z][0-9]*', shape_name)
-    var = {vertex: list(symbols(vertex + '(x:z)')) for vertex in vertexes}
-    variables = [variable for item in var.values() for variable in item]
+    vertexes = re.findall(r'[A-Z][0-9]*', shape_name)                           # list of symbol names
+    var = {vertex: list(symbols(vertex + '(x:z)')) for vertex in vertexes}      # maps names to symbols
+    variables = [variable for item in var.values() for variable in item]        # list of all symbols
     scene = []
     rules = []
 
     if shape_type == 'cube':
         scene = [
-            ComplexShape('polygon', [vertexes[0], vertexes[1], vertexes[2], vertexes[3]]),
-            ComplexShape('polygon', [vertexes[0], vertexes[1], vertexes[4], vertexes[5]]),
-            ComplexShape('polygon', [vertexes[1], vertexes[2], vertexes[5], vertexes[6]]),
-            ComplexShape('polygon', [vertexes[2], vertexes[3], vertexes[6], vertexes[7]]),
-            ComplexShape('polygon', [vertexes[3], vertexes[0], vertexes[7], vertexes[4]]),
-            ComplexShape('polygon', [vertexes[4], vertexes[5], vertexes[6], vertexes[7]])
+            ComplexShape('polygon', [Point(vertexes[0]), Point(vertexes[1]), Point(vertexes[2]), Point(vertexes[3])]),
+            ComplexShape('polygon', [Point(vertexes[0]), Point(vertexes[1]), Point(vertexes[4]), Point(vertexes[5])]),
+            ComplexShape('polygon', [Point(vertexes[1]), Point(vertexes[2]), Point(vertexes[5]), Point(vertexes[6])]),
+            ComplexShape('polygon', [Point(vertexes[2]), Point(vertexes[3]), Point(vertexes[6]), Point(vertexes[7])]),
+            ComplexShape('polygon', [Point(vertexes[3]), Point(vertexes[0]), Point(vertexes[7]), Point(vertexes[4])]),
+            ComplexShape('polygon', [Point(vertexes[4]), Point(vertexes[5]), Point(vertexes[6]), Point(vertexes[7])])
         ]
         rules = [
-            desc.perpendicular(vertexes[0], vertexes[1], vertexes[0], vertexes[3], var),
-            desc.perpendicular(vertexes[0], vertexes[1], vertexes[1], vertexes[2], var),
-            desc.perpendicular(vertexes[1], vertexes[2], vertexes[2], vertexes[3], var),
-            desc.perpendicular(vertexes[0], vertexes[1], vertexes[0], vertexes[4], var),
-            desc.perpendicular(vertexes[0], vertexes[3], vertexes[0], vertexes[4], var),
-            desc.parallel(vertexes[0], vertexes[4], vertexes[1], vertexes[5], var),
-            desc.parallel(vertexes[0], vertexes[4], vertexes[2], vertexes[6], var),
-            desc.parallel(vertexes[0], vertexes[4], vertexes[3], vertexes[7], var),
-            desc.parallel(vertexes[0], vertexes[1], vertexes[4], vertexes[5], var),
-            desc.parallel(vertexes[1], vertexes[2], vertexes[5], vertexes[6], var),
-            desc.parallel(vertexes[2], vertexes[3], vertexes[6], vertexes[7], var),
-            desc.parallel(vertexes[3], vertexes[0], vertexes[7], vertexes[4], var),
-            desc.equate(desc.point_distance(vertexes[0], vertexes[1], var),
-                        desc.point_distance(vertexes[0], vertexes[4], var)),
-            desc.equate(desc.point_distance(vertexes[0], vertexes[1], var),
-                        desc.point_distance(vertexes[0], vertexes[3], var))
+            var[vertexes[0]][0],
+            var[vertexes[0]][1],
+            var[vertexes[0]][2],
+            var[vertexes[1]][2],
+            var[vertexes[2]][2],
+            var[vertexes[3]][2],
+            var[vertexes[1]][0],
+            var[vertexes[3]][1],
+            var[vertexes[5]][0],
+            var[vertexes[7]][1],
+            var[vertexes[4]][0],
+            var[vertexes[4]][1],
+            var[vertexes[6]][0] - var[vertexes[3]][0],
+            var[vertexes[6]][1] - var[vertexes[1]][1],
+            var[vertexes[5]][1] - var[vertexes[1]][1],
+            var[vertexes[7]][0] - var[vertexes[3]][0],
+            var[vertexes[3]][0] - var[vertexes[1]][1],
+            var[vertexes[2]][1] - var[vertexes[1]][1],
+            var[vertexes[2]][0] - var[vertexes[3]][0],
+            var[vertexes[4]][2] - var[vertexes[1]][1],
+            var[vertexes[5]][2] - var[vertexes[4]][2],
+            var[vertexes[6]][2] - var[vertexes[4]][2],
+            var[vertexes[7]][2] - var[vertexes[4]][2]
         ]
 
     return scene, variables, rules

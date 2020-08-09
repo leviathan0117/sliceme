@@ -12,6 +12,9 @@ class Point:
     def __hash__(self):
         return hash(self.name)
 
+    def __str__(self):
+        return f"{self.name}({self.x}, {self.y}, {self.z})"
+
 
 class ComplexShape:
     """A shape that contains multiple points"""
@@ -22,3 +25,6 @@ class ComplexShape:
     def __init__(self, shape_type: str, points: list):
         self.content = points[::]
         self.type = shape_type
+
+    def __str__(self):
+        return f"{self.type} ({', '.join(map(str, self.content))})"

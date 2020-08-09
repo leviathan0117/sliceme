@@ -34,11 +34,11 @@ def solve(scene_description: list, variables: list, equations: list) -> list:
     solution = solve_system(equations, variables)
 
     for item in scene_description:
-        if item is Point:
+        if isinstance(item, Point):
             item.x = solution[item.name + 'x']
             item.y = solution[item.name + 'y']
             item.z = solution[item.name + 'z']
-        elif item is ComplexShape:
+        elif isinstance(item, ComplexShape):
             for point in item.content:
                 point.x = solution[point.name + 'x']
                 point.y = solution[point.name + 'y']
@@ -53,14 +53,14 @@ def pack_scene(scene: list) -> list:
     packed_scene = []
     for item in scene:
         component = {}
-        if item is Point:
+        if isinstance(item, Point):
             component['type'] = 'point'
             component['position'] = [
                 item.x,
                 item.y,
                 item.z
             ]
-        elif item is ComplexShape:
+        elif isinstance(item, ComplexShape):
             component['type'] = item.type
             component['content'] = []
             for point in item.content:
@@ -80,9 +80,6 @@ def process(raw_code: str) -> list:
     code = preprocess_code(raw_code)
 
     scene_description, variables, equations = interpret_code(code)
-
-    # debug output
-    print(equations)
 
     scene = solve(scene_description, variables, equations)
 
